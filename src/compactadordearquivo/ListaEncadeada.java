@@ -9,31 +9,8 @@ package compactadordearquivo;
  *
  * @author Luciana Alves
  */
-class No {
 
-    protected String elemento;
-    protected No proximo;
-
-    public No(String elemento, No proximo) {
-        this.elemento = elemento;
-        this.proximo = proximo;
-    }
-
-    String getElemento() {
-        return elemento;
-    }
-
-    No getProximo() {
-        return proximo;
-    }
-
-    void setProximo(No proximo) {
-        this.proximo = proximo;
-    }
-
-}
-
-public class Lista {
+public class ListaEncadeada {
 
     private No noInicial;
     private int tamanho = 0;

@@ -3,6 +3,7 @@ package compactadordearquivo;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -11,7 +12,17 @@ import java.io.IOException;
  */
 public class CompactadorDeArquivo {
 
-    private static void escreverNoArquivo(String saida) {
+    private static void escreveCompactado(String saida) throws IOException {
+        FileWriter escreve = new FileWriter("saidaCompactado.txt", false);
+        escreve.write(saida);
+        escreve.close();
+        System.out.println(saida);
+    }
+    
+    private static void escreveDescompactado(String saida) throws IOException {
+        FileWriter escreve = new FileWriter("saidaDescompactado.txt", false);
+        escreve.write(saida);
+        escreve.close();
         System.out.println(saida);
     }
 
@@ -40,12 +51,13 @@ public class CompactadorDeArquivo {
 
         return resultado.split(separadoraDePalavras);
     }
+    
 
-    public static String compactarTexto(String texto) {
+    public static String compactarTexto(String[] texto) {
         String textoCompactado = "";
-        String palavras[] = dividirEmPalavras(texto);
+        String palavras[] = texto;
         int i;
-        Lista lista = new Lista();
+        ListaEncadeada lista = new ListaEncadeada();
         for (i = 0; i < palavras.length; i++) {
             String palavraAtual = palavras[i];
 
@@ -73,7 +85,7 @@ public class CompactadorDeArquivo {
         String textoDescompactado = "";
         String palavras[] = dividirEmPalavras(texto);
         int i;
-        Lista lista = new Lista();
+        ListaEncadeada lista = new ListaEncadeada();
         for (i = 0; i < palavras.length; i++) {
             String palavraAtual = palavras[i];
 
@@ -101,24 +113,26 @@ public class CompactadorDeArquivo {
         return textoDescompactado;
     }
     
-    public static String leArquivo() throws FileNotFoundException, IOException{
+    public static String[] leArquivo() throws FileNotFoundException, IOException{
             
                 FileReader arquivo = new FileReader("texto.txt");
                 BufferedReader leBufferizado = new BufferedReader(arquivo); 
                 String linha = leBufferizado.readLine(); 
-                return linha;
+                String[] texto = dividirEmPalavras(linha);
+                        //linha.split("");
+                return texto;
 }
     
 
     public static void main(String[] args) throws IOException {
-        String entrada = leArquivo();
+        String[] entrada = leArquivo();
         String compactado = compactarTexto(entrada);
         String descompactado = descompactarTexto(compactado);
         System.out.println("----> T E X T O   C O M P A C T A D O <----");
-        escreverNoArquivo(compactado);
+        escreveCompactado(compactado);
 
         System.out.println("----> T E X T O   D E S C O M P A C T A D O <----");
-        escreverNoArquivo(descompactado);
+        escreveDescompactado(descompactado);
 
     }
 
