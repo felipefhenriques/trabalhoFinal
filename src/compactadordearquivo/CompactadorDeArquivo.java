@@ -53,9 +53,9 @@ public class CompactadorDeArquivo {
     }
     
 
-    public static String compactarTexto(String[] texto) {
+    public static String compactarTexto(String texto) {
         String textoCompactado = "";
-        String palavras[] = texto;
+        String palavras[] = dividirEmPalavras(texto);
         int i;
         ListaEncadeada lista = new ListaEncadeada();
         for (i = 0; i < palavras.length; i++) {
@@ -113,19 +113,18 @@ public class CompactadorDeArquivo {
         return textoDescompactado;
     }
     
-    public static String[] leArquivo() throws FileNotFoundException, IOException{
+    public static String leArquivo() throws FileNotFoundException, IOException{
             
                 FileReader arquivo = new FileReader("texto.txt");
                 BufferedReader leBufferizado = new BufferedReader(arquivo); 
                 String linha = leBufferizado.readLine(); 
-                String[] texto = dividirEmPalavras(linha);
-                        //linha.split("");
-                return texto;
+                        
+                return linha;
 }
     
 
     public static void main(String[] args) throws IOException {
-        String[] entrada = leArquivo();
+        String entrada = leArquivo();
         String compactado = compactarTexto(entrada);
         String descompactado = descompactarTexto(compactado);
         System.out.println("----> T E X T O   C O M P A C T A D O <----");
